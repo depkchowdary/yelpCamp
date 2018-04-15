@@ -20,6 +20,8 @@ var methodOverride = require("method-override")
 
 //seedDB();
 mongoose.connect(process.env.DATABASEURL)
+console.log(process.env.DATABASEURL)
+//mongoose.connect("mongodb://produser:produser@dbclus-shard-00-00-9vyui.mongodb.net:27017,dbclus-shard-00-01-9vyui.mongodb.net:27017,dbclus-shard-00-02-9vyui.mongodb.net:27017/yelp_camp?ssl=true&replicaSet=dbclus-shard-0&authSource=admin")
 app.use(flash());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
