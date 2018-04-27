@@ -6,7 +6,6 @@ var passport = require("passport")
 router.get("/register", function(req, res) {
     res.render("register", { page: "register" })
 })
-
 router.post("/register", function(req, res) {
     console.log(req.body)
     User.register(new User({ username: req.body.username }), req.body.password, function(err, user) {
