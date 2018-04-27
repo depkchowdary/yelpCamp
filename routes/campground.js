@@ -64,7 +64,7 @@ router.get("/:id", function(req, res) {
     var imageId = req.params.id
     Campground.findById(imageId).populate("comments").exec(function(err, foundCampground) {
         if (err) {
-            console.err(err)
+            console.log(err)
         }
         else {
             res.render("campgrounds/show", { campground: foundCampground })
