@@ -17,7 +17,7 @@ var campgroundRoutes = require("./routes/campground")
 var commentRoutes = require("./routes/comments")
 var indexRoutes = require("./routes/index")
 var methodOverride = require("method-override")
-
+app.locals.moment = require('moment');
 
 
 //seedDB();
