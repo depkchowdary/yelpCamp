@@ -1,9 +1,19 @@
 <% include ../partials/header %>
-        <div class="jumbotron">
+        <header class="jumbotron">
             <h1>Add to YelpCamp!</h1>
             <h2>Your handpicked campgrounds around the world!</h2>
-           <button class="btn btn-success btn-lg"><a href="/campgrounds/new">Add a New campground!</a></button> 
-        </div>
+           <button class="btn btn-warning btn-lg"><a href="/campgrounds/new">Add a New campground!</a></button>
+           <p>
+            <form action="/campgrounds" method="GET" class="form-inline">
+               <div class="form-group">
+                    <input type="text" class="form-control" name="search" placeholder="Campground or Username" >
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary">Search</button> 
+                </div>
+           </form>  
+           </p>
+        </header>
     <div class="row text-center" style="display: flex; flex-wrap: wrap">    
     <% campgrounds.forEach(campground => { %>
         <div class="col-md-4 col-sm-6">

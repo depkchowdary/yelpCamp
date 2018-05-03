@@ -20,6 +20,8 @@ var methodOverride = require("method-override")
 app.locals.moment = require('moment');
 
 
+
+
 //seedDB();
 mongoose.connect(process.env.DATABASEURL)
 console.log(process.env.DATABASEURL)

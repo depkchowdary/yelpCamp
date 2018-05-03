@@ -21,6 +21,31 @@ router.post("/register", function(req, res) {
     })
 });
 
+router.get("/register/admin", function(req, res) {
+    res.render("AdminRegister", { page: "register" })
+})
+
+router.post("/register/admin", function(req, res) {
+    if (req.body.secretHash === "dummyHash") {
+        User.register(new User({ username: req.body.username, isAdmin: true }), req.body.password, function(err, user) {
+            if (err) {
+                req.flash("error", err.message)
+                return res.redirect("back");
+            }
+            passport.authenticate("local")(req, res, function() {
+                req.flash("success", "Hello! You are admin, " + user.username)
+                res.redirect("/campgrounds");
+            });
+        })
+    }
+    else {
+        req.flash("error", "Something wrong with Admin Code! Please check with owner")
+        res.redirect("back")
+    }
+
+});
+
+
 router.get("/login", function(req, res) {
     res.render("login", { page: "login" })
 })

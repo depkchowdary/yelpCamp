@@ -3,6 +3,7 @@ var router = express.Router()
 var Campground = require("../models/campgrounds")
 var middlewareObj = require("../middleware/")
 var NodeGeocoder = require('node-geocoder');
+var ErrorStackTrace = require("error-stack-parser")
 
 var options = {
     provider: 'google',
@@ -14,14 +15,38 @@ var options = {
 var geocoder = NodeGeocoder(options);
 
 router.get("/", function(req, res) {
-    Campground.find({}, function(err, dbcampgrounds) {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            res.render("campgrounds/index", { campgrounds: dbcampgrounds, page: 'campgrounds' });
-        }
-    });
+
+    var search = req.query.search
+
+    if (search) {
+        const regex = new RegExp(escapeRegex(search), 'gi');
+        Campground.find({ name: regex }, function(err, dbcampgrounds) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (dbcampgrounds.length < 1) {
+                    req.flash("error", "No campgrounds found! Please try searching again.")
+                    res.redirect("back")
+                }
+                else {
+                    res.render("campgrounds/index", { campgrounds: dbcampgrounds, page: 'campgrounds' });
+                }
+            }
+        });
+    }
+    else {
+        Campground.find({}, function(err, dbcampgrounds) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                res.render("campgrounds/index", { campgrounds: dbcampgrounds, page: 'campgrounds' });
+            }
+        });
+    }
+
+
 });
 
 //CREATE - add new campground to DB
@@ -51,7 +76,6 @@ router.post("/", middlewareObj.isLoggedIn, function(req, res) {
             }
             else {
                 //redirect back to campgrounds page
-                console.log(newlyCreated);
                 res.redirect("/campgrounds");
             }
         });
@@ -116,6 +140,10 @@ router.delete("/:id", middlewareObj.checkCampgroundOwnerShip, function(req, res)
         res.redirect("/campgrounds");
     })
 });
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router
