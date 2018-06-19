@@ -3,7 +3,7 @@ var router = express.Router()
 var Campground = require("../models/campgrounds")
 var middlewareObj = require("../middleware/")
 var NodeGeocoder = require('node-geocoder');
-var ErrorStackTrace = require("error-stack-parser")
+
 
 var options = {
     provider: 'google',
