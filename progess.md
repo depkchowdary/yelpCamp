@@ -1,22 +1,20 @@
-Progress - 16th April
-Completed WebDevBoot camp version of yelpcamp
+YelpCamp implementation. 
 
-Plans to make changes - Scheduled to complete by 24th April
-Make all suggested improvements to yelpcamp incrementally 
+# All features implemented
 
+# Planned features
+    - Port frontend to Vue Js 
+    - Change landing page
+    - Implementing Email activation, Password reset and change password flows
+    - Add User CRUD flow 
+    - Map view for all campgrounds
+    - Cross browser compatiblity( Workflow automation using Glup)
 
-User Roles:
-
-Owner
-
-Can add or remove admins
-Can delete,update any item everywhere in the thing but user will be notified via email 
-
-Admin: For now
-
-Can delete,update any item everywhere in the thing but owner and user will be notified via email
-
-
-yelpcamp user: Already implemented
-
-Just a user
+# Architecture:
+    - Node Js
+    - Mongo DB(mLab Cluster)
+    - Cloudinary
+    - Google Static API
+    - Express.js
+    - Heroku App Engine
+    - Git
